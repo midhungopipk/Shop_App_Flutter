@@ -24,16 +24,19 @@ class Productitem extends StatelessWidget {
       child: GridTile(
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: Consumer<Product>(builder: (ctx, product, child) {
-            return IconButton(
+          leading: Consumer<Product>(
+            builder: (ctx, product, _) {
+              return IconButton(
                 onPressed: () {
                   product.toggleFavourite();
                 },
                 icon: Icon(product.favourite
                     ? Icons.favorite
                     : Icons.favorite_outline_outlined),
-                color: Theme.of(context).colorScheme.secondary);
-          }),
+                color: Theme.of(context).colorScheme.secondary,
+              );
+            },
+          ),
           title: Text(
             product.title,
             textAlign: TextAlign.center,
