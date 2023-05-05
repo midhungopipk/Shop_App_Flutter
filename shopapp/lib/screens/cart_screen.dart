@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 import 'package:shopapp/providers/orders.dart';
 import '../providers/cart.dart' show Cart;
@@ -40,17 +38,7 @@ class CartScreen extends StatelessWidget {
                     ),
                     backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
-                  TextButton(
-                      onPressed: () {
-                        orders.addOrder(
-                            cart.items.values.toList(), cart.totalAmount);
-                        cart.clear();
-                      },
-                      child: Text(
-                        "ORDER NOW",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary),
-                      ))
+                  OrderButton(cart: cart, orders: orders)
                 ],
               ),
             ),
@@ -68,5 +56,46 @@ class CartScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class OrderButton extends StatefulWidget {
+  const OrderButton({
+    super.key,
+    required this.cart,
+    required this.orders,
+  });
+
+  final Cart cart;
+  final Orders orders;
+
+  @override
+  State<OrderButton> createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  var _isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+        onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
+            ? null
+            : () async {
+                setState(() {
+                  _isLoading = true;
+                });
+                await widget.orders.addOrder(
+                    widget.cart.items.values.toList(), widget.cart.totalAmount);
+                setState(() {
+                  _isLoading = false;
+                });
+                widget.cart.clear();
+              },
+        child: _isLoading
+            ? CircularProgressIndicator()
+            : Text(
+                "ORDER NOW",
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              ));
   }
 }
