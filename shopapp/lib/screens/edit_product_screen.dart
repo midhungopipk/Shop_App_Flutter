@@ -89,7 +89,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
       _isLoading = true;
     });
     if (_editedProduct.id != null && _editedProduct.id.length != 0) {
-      print(_editedProduct.title);
       try {
         await Provider.of<Products>(context, listen: false)
             .updateProduct(_editedProduct.id, _editedProduct);
@@ -97,11 +96,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
         await showDialog(
             context: context,
             builder: (ctx) => AlertDialog(
-                  title: Text(
+                  title: const Text(
                     'An error Occured',
                     style: TextStyle(color: Colors.black),
                   ),
-                  content: Text('Something went wrong'),
+                  content: const Text('Something went wrong'),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -112,7 +111,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   ],
                 ));
       } finally {
-        print('catch executed');
         setState(() {
           _isLoading = false;
         });
@@ -141,7 +139,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   ],
                 ));
       } finally {
-        print('then executed');
         setState(() {
           _isLoading = false;
         });
