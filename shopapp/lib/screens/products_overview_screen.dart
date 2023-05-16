@@ -28,9 +28,11 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
+      setState(
+        () {
+          _isLoading = true;
+        },
+      );
       Provider.of<Products>(context).fetchAndSetProducts().then((_) {
         setState(() {
           _isLoading = false;
@@ -49,7 +51,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Shop'),
+        title: Text(
+          'My Shop',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         actions: [
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {

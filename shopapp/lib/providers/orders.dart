@@ -20,14 +20,19 @@ class OrderItem {
 class Orders with ChangeNotifier {
   List<OrderItem> _orders = [];
 
+  final String _authToken;
+  final String userId;
+  Orders(this._authToken, this.userId, this._orders);
+
   List<OrderItem> get orders {
     return [..._orders];
   }
 
   Future<void> fetchAndSetOrders() async {
-    final url = Uri.https(
-        'flutter-shopapp-4cd88-default-rtdb.firebaseio.com', 'orders.json');
-
+    // final url = Uri.https(
+    //     'flutter-shopapp-4cd88-default-rtdb.firebaseio.com', 'orders.json');
+    Uri url = Uri.parse(
+        'https://flutter-shopapp-4cd88-default-rtdb.firebaseio.com/orders/$userId.json?auth=$_authToken');
     try {
       final response = await http.get(url);
       if (json.decode(response.body) == null) {
@@ -64,8 +69,10 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
-    final url = Uri.https(
-        'flutter-shopapp-4cd88-default-rtdb.firebaseio.com', 'orders.json');
+    // final url = Uri.https(
+    //     'flutter-shopapp-4cd88-default-rtdb.firebaseio.com', 'orders.json');
+    Uri url = Uri.parse(
+        'https://flutter-shopapp-4cd88-default-rtdb.firebaseio.com/orders/$userId.json?auth=$_authToken');
     final timeStamp = DateTime.now();
     try {
       final response = await http.post(url,

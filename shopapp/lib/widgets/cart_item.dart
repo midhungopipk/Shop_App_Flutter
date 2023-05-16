@@ -72,7 +72,7 @@ class CartItem extends StatelessWidget {
                   child: FittedBox(
                       child: Text(
                     '\$${price}',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ))),
             ),
             title: Text(title),

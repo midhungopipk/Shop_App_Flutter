@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shopapp/providers/auth.dart';
 import 'package:shopapp/providers/cart.dart';
 import '../screens/product_detail_screen.dart';
 import '../providers/product.dart';
@@ -19,6 +20,7 @@ class Productitem extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
 //if u use consumer and wrap it around the widget that only want an update that widget will only rebuild
+    final authData = Provider.of<Auth>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -29,7 +31,8 @@ class Productitem extends StatelessWidget {
             builder: (ctx, product, _) {
               return IconButton(
                 onPressed: () {
-                  product.toggleFavourite();
+                  product.toggleFavourite(
+                      authData.token.toString(), authData.userId.toString());
                 },
                 icon: Icon(product.favourite
                     ? Icons.favorite
