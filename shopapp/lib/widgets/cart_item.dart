@@ -30,7 +30,7 @@ class CartItem extends StatelessWidget {
           context: context,
           builder: (ctx) => AlertDialog(
             title: Text("Are you sure?"),
-            content: Text('Dou you want to remove item from the cart?'),
+            content: Text('Do you want to remove item from the cart?'),
             actions: [
               TextButton(
                   onPressed: () {
@@ -68,12 +68,14 @@ class CartItem extends StatelessWidget {
             leading: CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.primary,
               child: Padding(
-                  padding: EdgeInsets.all(5),
-                  child: FittedBox(
-                      child: Text(
+                padding: EdgeInsets.all(5),
+                child: FittedBox(
+                  child: Text(
                     '\$${price}',
                     style: Theme.of(context).textTheme.titleMedium,
-                  ))),
+                  ),
+                ),
+              ),
             ),
             title: Text(title),
             subtitle: Text("Total: \$${(price * quantity)}"),

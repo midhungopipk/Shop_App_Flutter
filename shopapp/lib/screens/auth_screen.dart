@@ -140,9 +140,11 @@ class _AuthCardState extends State<AuthCard> {
       return;
     }
     _formKey.currentState?.save();
-    setState(() {
-      _isLoading = true;
-    });
+    setState(
+      () {
+        _isLoading = true;
+      },
+    );
     try {
       if (_authMode == AuthMode.Login) {
         await Provider.of<Auth>(context, listen: false).signin(
